@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".tenders.tabs.DetailsTab">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_marginStart="15dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/title"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="פרטי חברה" />
+
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="ח.פ. חברה:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:enabled="false"
+                android:focusable="false"
+                android:id="@+id/editMqt"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:singleLine="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="שם:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:focusable="false"
+                android:enabled="false"
+                android:id="@+id/editName"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:singleLine="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="כתובת: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:focusable="false"
+                android:enabled="false"
+                android:id="@+id/editAddress"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:singleLine="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="איש קשר:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:focusable="false"
+            android:enabled="false"
+            android:id="@+id/editContact"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:singleLine="false" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="טלפון:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:focusable="false"
+                android:enabled="false"
+                android:id="@+id/editPhone"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:singleLine="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="דוא''ל:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:focusable="false"
+                android:enabled="false"
+                android:id="@+id/editEmail"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:singleLine="false" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@android:color/darker_gray"
+            />
+
+        <TextView
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/title2"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="פרטי מכרז" />
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="קטגוריה:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:focusable="false"
+                android:enabled="false"
+                android:id="@+id/category"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:singleLine="false" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="תנאי תשלום:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:focusable="false"
+                android:enabled="false"
+                android:id="@+id/editCredit"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:singleLine="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="מע''מ:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:focusable="false"
+                android:enabled="false"
+                android:id="@+id/editMaam"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:singleLine="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="דחיפות:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:focusable="false"
+                android:enabled="false"
+                android:id="@+id/editDhifot"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:singleLine="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="כולל הובלה:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:focusable="false"
+                android:enabled="false"
+                android:id="@+id/editHovala"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:singleLine="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="הערות:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:singleLine="false"
+                android:focusable="false"
+                android:enabled="false"
+                android:id="@+id/editComments"
+                android:layout_width="150dp"
+                android:layout_height="100dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="כתובת למשלוח:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:focusable="false"
+                android:enabled="false"
+                android:id="@+id/editAddressForSend"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:singleLine="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:src="@android:drawable/ic_menu_upload"
+                android:id="@+id/uploadImageFromGallery"
+                android:layout_width="55dp"
+                android:layout_height="55dp" />
+
+            <ImageView
+                android:layout_marginStart="25dp"
+                android:src="@mipmap/ic_image"
+                android:id="@+id/image"
+                android:layout_width="75dp"
+                android:layout_height="75dp" />
+            <ImageButton
+                android:id="@+id/pdfBtn"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@mipmap/baseline_picture_as_pdf_black_24"/>
+            <Button
+                android:id="@+id/selectPdf"
+                android:layout_width="55dp"
+                android:layout_height="55dp" />
+            <TextView
+                android:id="@+id/pdfFileName"
+                android:layout_width="30dp"
+                android:layout_height="20dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:text="המשך לתמחור"
+                android:id="@+id/btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    </ScrollView>
+</FrameLayout>
