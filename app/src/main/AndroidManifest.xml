@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,8 +23,7 @@
             android:name=".tenders.tabs.TabsActivity"
             android:label="@string/title_activity_tabs"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".tenders.DetailsPublic"  />
+        <activity android:name=".tenders.DetailsPublic" />
 
         <service
             android:name=".FireBaseBackgroundService"
@@ -40,14 +38,25 @@
         </receiver>
 
         <activity
-            android:name=".tenders.TendersActivity" android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".support.SupportedActivity" android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".support.ManageActivity" android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".tenders.MyTendersActivity" android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".tenders.TyototActivity" android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".tenders.TendersActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".support.SupportedActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".support.ManageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".tenders.MyTendersActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".tenders.TyototActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".tenders.tabs.Mifrat" />
         <activity android:name=".tenders.tabs.PriceItem" />
-        <activity android:name=".tenders.WinTendersActivity" android:theme="@style/AppTheme.NoActionBar" ></activity>
+        <activity
+            android:name=".tenders.WinTendersActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

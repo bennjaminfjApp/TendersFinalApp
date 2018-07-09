@@ -364,7 +364,7 @@
                 android:layout_width="75dp"
                 android:layout_height="75dp" />
             <ImageButton
-                android:id="@+id/pdfBtn"
+                android:id="@+id/goToPdfFileBtn"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:src="@mipmap/baseline_picture_as_pdf_black_24"/>
