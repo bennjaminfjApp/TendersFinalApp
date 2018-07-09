@@ -85,7 +85,7 @@ public class DetailsTab extends Fragment {
         mProgressDialog.show();
         //name = getActivity().getIntent().getStringExtra("name");
 
-        /////////////////////    PDF    ///////////////////////////////
+        /////////////////////    PDF   benny ///////////////////////////////
 
        /* selectPdfBtn = view.findViewById(R.id.selectPdf);
         uploadPdfBtn = view.findViewById(R.id.pdfBtn);
