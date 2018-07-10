@@ -47,15 +47,19 @@ public class DetailsTab extends Fragment {
     private String name;
     private ProgressDialog mProgressDialog;
 ///////////////////// PDF ////////////////
-  /*  private ImageButton uploadPdfBtn ;
-    private ImageButton selectPdfBtn ;
-    private TextView filePdfName ;
-    Uri pdfUri ;*/
+
 /////////////////////////////////////////
     private Uri mImageUri;
     DatabaseReference dRef;
     String url;
     static EditText editComments, editAddressForSend;
+
+    /////////////////// trying pdf using webView ////////////
+
+
+
+
+    //////////////////////////////////////////////////////////
 
 
    // final int PICKFILE_REQUEST_CODE = 99 ;
@@ -85,7 +89,9 @@ public class DetailsTab extends Fragment {
         mProgressDialog.show();
         //name = getActivity().getIntent().getStringExtra("name");
 
-        /////////////////////    PDF    ///////////////////////////////
+        /////////////////////    PDF   benny ///////////////////////////////
+
+
 
        /* selectPdfBtn = view.findViewById(R.id.selectPdf);
         uploadPdfBtn = view.findViewById(R.id.pdfBtn);
@@ -196,6 +202,7 @@ public class DetailsTab extends Fragment {
                 startActivityForResult(openGallery, 2);
 
 
+
                /////// Intent that get permission to all files ///////
              //   Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
              //   intent.setType("*/*");
@@ -242,34 +249,7 @@ public class DetailsTab extends Fragment {
         return view;
     }
 
-    /*private void uploadPdf(final Uri pdfUri) {
-        String pdfName = System.currentTimeMillis() + "";
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReferenceFromUrl("gs://tenders-83c71.appspot.com/");
-        storageReference.child("PDF").child(pdfName).putFile(pdfUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        String url = taskSnapshot.getDownloadUrl().toString();
-                        dRef = FirebaseDatabase.getInstance().getReference().child("users");
 
-                        dRef.child(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE)
-                                .getString("username", ""))
-                                .child(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE)
-                                        .getString("company", "") + "PDF").setValue(url.toString());
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-
-            }
-        });
-    }*/
 
 
     @Override
@@ -277,13 +257,7 @@ public class DetailsTab extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         ////////////////  PDF  ////////////////////
 
-     /*   if( requestCode == 17 && resultCode == RESULT_OK && data!= null){
-            pdfUri = data.getData();
-        }
-        else{
-            Toast.makeText(getContext(),"Pleas select File",Toast.LENGTH_LONG).show();
-        }
-*/
+
         //////////////////////////////////////////
         mProgressDialog = new ProgressDialog(getContext());
         mProgressDialog.setCancelable(false);
@@ -311,10 +285,6 @@ public class DetailsTab extends Fragment {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bitmapdata.compress(Bitmap.CompressFormat.PNG, 0, baos);
 
-            /*Bitmap scaledBitmap = scaleDown(bitmap, 1000, true);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] Bitmapdata = baos.toByteArray();*/
             ////////////////////////////////////////////////////////////////////////////////////////////////////
 
                     FirebaseStorage storage = FirebaseStorage.getInstance();
