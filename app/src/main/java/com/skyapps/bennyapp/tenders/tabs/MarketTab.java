@@ -26,7 +26,11 @@ import com.firebase.client.ValueEventListener;
 import com.skyapps.bennyapp.Objects.ItemMarket;
 import com.skyapps.bennyapp.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
@@ -256,8 +260,10 @@ public class MarketTab extends Fragment {
                 timeStart.setText(dataSnapshot.child("timeStart").getValue()+"");
                 timeEnd.setText(dataSnapshot.child("timeEnd").getValue()+"");
 
-                long timerFireBase = (long) dataSnapshot.child("timer").getValue();
+                long timerFireBase = calcTimer(dateEnd.getText().toString(),timeEnd.getText().toString());
                 //long timerFireBase = 10000000;
+
+
                 new CountDownTimer(timerFireBase, 1000) {
 
                     public void onTick(long millisUntilFinished) {
@@ -271,6 +277,7 @@ public class MarketTab extends Fragment {
                         millisUntilFinished -= TimeUnit.MINUTES.toMillis(minutes);
 
                         long seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
+
 
                         if (days==0){
                             if (hours ==0){
@@ -293,6 +300,24 @@ public class MarketTab extends Fragment {
                 }.start();
 
 
+            }
+            private Long calcTimer(String endDate, String endTime)  {
+                String time = endDate + " " + endTime;
+                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
+                Date d = null;
+                Date currentDate = Calendar.getInstance().getTime();
+                Long diff = null;
+                try {
+                    d = df.parse(time);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                diff = d.getTime() - currentDate.getTime()  ;
+
+
+                return diff;
             }
 
             @Override

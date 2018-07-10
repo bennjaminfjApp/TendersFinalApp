@@ -52,9 +52,9 @@ public class publicTenders extends Fragment {
             public void onDataChange(DataSnapshot snapshot) {
                 int i = 0;
                 for(DataSnapshot postSnapshot : snapshot.getChildren()){
-                    tenderArrayList.add(new Tender(postSnapshot.child("mqt").getValue()+"", postSnapshot.getKey(),
-                            postSnapshot.child("name").getValue()+"",(long)postSnapshot.child("timer").getValue()));
-
+                    tenderArrayList.add(new Tender(postSnapshot.child("mqt").getValue() + "", postSnapshot.getKey(),
+                            postSnapshot.child("name").getValue() + "",
+                            (long) postSnapshot.child("timer").getValue()));
 
                     i++;
                 }

@@ -1,13 +1,10 @@
 package com.skyapps.bennyapp.tenders;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +16,10 @@ import com.skyapps.bennyapp.Objects.Tender;
 import com.skyapps.bennyapp.R;
 import com.skyapps.bennyapp.tenders.tabs.TabsActivity;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
@@ -27,6 +28,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private HashMap<Tender, List<Item>> _listDataChild;
 
     long timeq;
+
+    //int count = 1;
+    //int c = 5;
 
 
     public ExpandableListAdapter(Context context, List<Tender> listDataHeader,
@@ -144,12 +148,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         name.setText(tender.getName());
         project.setText(tender.getProject());
 
+        //if (tender.getTime() > ??)
+        //else time.setText("הזמן נגמר");
 
+        Log.e("the tender: " , tender.getTime()+"");
 
         CountDownTimer c = new CountDownTimer(tender.getTime(), 1000) {
 
             public void onTick(long millisUntilFinished) {
                 //timeq++;
+
 
                 long days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished);
                 millisUntilFinished -= TimeUnit.DAYS.toMillis(days);
@@ -161,6 +169,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 millisUntilFinished -= TimeUnit.MINUTES.toMillis(minutes);
 
                 long seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
+
 
                 if (days == 0) {
                     if (hours == 0) {
@@ -176,15 +185,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 
 
-
-
-
             }
 
             public void onFinish() {
             }
 
         };
+
 
         if (time.getText().toString().equals("שעה ותאריך")) {
             c.start();
@@ -198,6 +205,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
+
+
     @Override
     public boolean hasStableIds() {
         return false;
@@ -207,4 +216,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
+
 }

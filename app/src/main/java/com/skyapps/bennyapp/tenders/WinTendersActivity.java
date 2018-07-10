@@ -93,7 +93,21 @@ public class WinTendersActivity extends AppCompatActivity implements NavigationV
 
                     listDataHeader.add(new Tender(snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("mqt").getValue()+"",
                             postSnapshot.getKey(), snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("name").getValue()+"",
-                            0));
+                            (long)snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("Info").child("timer").getValue(),
+                            postSnapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("info").child("startTender") +"",
+                            postSnapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("info").child("endTender") +"",
+                            postSnapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("info").child("timeStart") +"",
+                            postSnapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("info").child("timeEnd") +""
+
+
+
+
+
+
+
+
+
+                    ));
                     //TODO "הזמן נגמר"
                     //TODO PUTEXTRA DELETE THE PENCILE , TIME , COMMENTS , SEND , TYOYA...
                     List<Item> list = new ArrayList<Item>();

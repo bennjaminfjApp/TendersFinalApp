@@ -45,6 +45,9 @@ public class CustomAdapter extends ArrayAdapter<Tender> {
             name.setText("למינויים בלבד");
         } else{
             name.setText(tender.getName());
+
+
+
             new CountDownTimer(tender.getTime(), 1000) {
 
                 public void onTick(long millisUntilFinished) {
@@ -86,4 +89,6 @@ public class CustomAdapter extends ArrayAdapter<Tender> {
 
         return rowView;
     }
+
+
 }

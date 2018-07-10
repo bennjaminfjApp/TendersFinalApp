@@ -101,7 +101,21 @@ public class TyototActivity extends AppCompatActivity implements NavigationView.
 
                             listDataHeader.add(new Tender(snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("mqt").getValue()+"",
                                     postSnapshot.getKey(), snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("name").getValue()+"",
-                                    (long)snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("Info").child("timer").getValue()));
+                                    (long)snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("Info").child("timer").getValue(),
+                                    postSnapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("info").child("startTender") +"",
+                                    postSnapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("info").child("endTender") +"",
+                                    postSnapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("info").child("timeStart") +"",
+                                    postSnapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("info").child("timeEnd") +""
+
+
+
+
+
+
+
+
+
+                            ));
                             List<Item> list = new ArrayList<Item>();
                             list.add(new Item(postSnapshot.getKey()+"",
                                     snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("contact").getValue()+"",

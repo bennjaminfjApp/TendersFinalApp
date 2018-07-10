@@ -170,7 +170,7 @@ public class DetailsTab extends Fragment {
                     Log.e( "כמ:" , postSnapshot.getKey());
                     try {
                         if (postSnapshot.getKey().equals(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("username", ""))) {
-                            url = postSnapshot.child(name + "Image").getValue()+"";
+                            url = postSnapshot.child(name).child(name + "Image").getValue()+"";
                             //Glide.with(getContext()).load(postSnapshot.child(name + "Image").getValue()).into(image);
                             Glide.with(getContext()).load(postSnapshot.child(name).child(name + "Image").getValue()).into(image);
                         }

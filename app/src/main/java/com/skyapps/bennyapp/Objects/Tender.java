@@ -1,17 +1,28 @@
 package com.skyapps.bennyapp.Objects;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Tender {
     String name, masad, project;
     long time;
     String email, phone;
+    String startTender, endTender;
+    String startTime, endTime;
 
 
 
-    public Tender(String masad, String name, String project, long time) {
+    public Tender(String masad, String name, String project, long time, String startTender, String endTender, String startTime, String endTime) {
         this.masad = masad;
         this.name = name;
         this.project = project;
-        this.time = time;
+        this.time = calcTimer(endTender,endTime);
+        this.startTender = startTender;
+        this.endTender = endTender;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public Tender(String name, long time, String email, String phone) {
@@ -20,6 +31,16 @@ public class Tender {
         this.email = email;
         this.phone = phone;
     }
+
+    public Tender(String masad, String name, String email, long time) {
+        this.masad = masad;
+        this.name = name;
+        this.time = time;
+        this.email = email;
+
+    }
+
+
 
     public String getName() {
         return name;
@@ -67,5 +88,63 @@ public class Tender {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getStartTender() {
+        return startTender;
+    }
+
+    public void setStartTender(String startTender) {
+        this.startTender = startTender;
+    }
+
+    public String getEndTender() {
+        return endTender;
+    }
+
+    public void setEndTender(String endTender) {
+        this.endTender = endTender;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public Long calcTimer(String endDate, String endTime)  {
+        String time = endDate + " " + endTime;
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
+        Date d = null;
+        Date currentDate = Calendar.getInstance().getTime();
+        Long diff = null;
+        try {
+            d = df.parse(time);
+            //long t = df.parse(currentDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        diff = d.getTime() - currentDate.getTime()  ;
+
+        /*if (diff<=0){
+
+        }*/
+
+
+        //if (t > d){
+
+        return diff;
     }
 }
