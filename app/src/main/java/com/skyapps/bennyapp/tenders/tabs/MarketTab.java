@@ -263,41 +263,49 @@ public class MarketTab extends Fragment {
                 long timerFireBase = calcTimer(dateEnd.getText().toString(),timeEnd.getText().toString());
                 //long timerFireBase = 10000000;
 
+                if(calcTimer(dateStart.getText().toString(),timeStart.getText().toString())>=0){
+                    timer.setText("טרם התחיל");
+                }
+                else if(timerFireBase<=0){
+                    timer.setText("עבר הזמן");
+                }
+                else {
 
-                new CountDownTimer(timerFireBase, 1000) {
+                    new CountDownTimer(timerFireBase, 1000) {
 
-                    public void onTick(long millisUntilFinished) {
-                        long days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished);
-                        millisUntilFinished -= TimeUnit.DAYS.toMillis(days);
+                        public void onTick(long millisUntilFinished) {
+                            long days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished);
+                            millisUntilFinished -= TimeUnit.DAYS.toMillis(days);
 
-                        long hours = TimeUnit.MILLISECONDS.toHours(millisUntilFinished);
-                        millisUntilFinished -= TimeUnit.HOURS.toMillis(hours);
+                            long hours = TimeUnit.MILLISECONDS.toHours(millisUntilFinished);
+                            millisUntilFinished -= TimeUnit.HOURS.toMillis(hours);
 
-                        long minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished);
-                        millisUntilFinished -= TimeUnit.MINUTES.toMillis(minutes);
+                            long minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished);
+                            millisUntilFinished -= TimeUnit.MINUTES.toMillis(minutes);
 
-                        long seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
+                            long seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
 
 
-                        if (days==0){
-                            if (hours ==0){
+                            if (days == 0) {
+                                if (hours == 0) {
+                                    timer.setText(minutes + ":" + seconds);
+                                } else {
+                                    timer.setText(hours + ":" + minutes + ":" + seconds);
+                                }
+                            } else if (hours == 0) {
                                 timer.setText(minutes + ":" + seconds);
                             } else {
-                                timer.setText(hours + ":" + minutes + ":" + seconds);
+                                timer.setText(days + " ימים , " + hours + ":" + minutes + ":" + seconds);
                             }
-                        } else if (hours==0){
-                            timer.setText(minutes + ":" + seconds);
-                        }else {
-                            timer.setText(days + " ימים , " + hours + ":" + minutes + ":" + seconds);
+
                         }
 
-                    }
+                        public void onFinish() {
+                            timer.setText("עבר הזמן");
+                        }
 
-                    public void onFinish() {
-                        //mTextField.setText("done!");
-                    }
-
-                }.start();
+                    }.start();
+                }
 
 
             }
@@ -314,7 +322,7 @@ public class MarketTab extends Fragment {
                     e.printStackTrace();
                 }
 
-                diff = d.getTime() - currentDate.getTime()  ;
+                diff = d.getTime() - currentDate.getTime();
 
 
                 return diff;
