@@ -37,32 +37,31 @@ import com.skyapps.bennyapp.R;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class DetailsTab extends Fragment {
 
     private EditText editMqt, editName, editAddress, editContact, editPhone, editEmail, editCredit, editMaam, editDhifot, editHovala;
-    private ImageButton uploadImage;
-    private ImageView image;
+    private ImageButton uploadFromCam;
+    private ImageButton uploadFromGallery;
+    private Button uploadDoc;
+
+    private static final int CAMERA_REQUEST_CODE = 69 ;
+    private static final int GALLERY_REQUEST_CODE = 70 ;
+    private static final int PICK_FILE_REQUEST_CODE = 71 ;
+
+    private ImageView image; /// now using this
     private Button btn;
     private String name;
     private ProgressDialog mProgressDialog;
-///////////////////// PDF ////////////////
 
-/////////////////////////////////////////
+
     private Uri mImageUri;
     DatabaseReference dRef;
     String url;
     static EditText editComments, editAddressForSend;
 
-    /////////////////// trying pdf using webView ////////////
-
-
-
-
-    //////////////////////////////////////////////////////////
-
-
-   // final int PICKFILE_REQUEST_CODE = 99 ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,50 +86,20 @@ public class DetailsTab extends Fragment {
         mProgressDialog.setCancelable(false);
         mProgressDialog.setMessage("אנא המתן...");
         mProgressDialog.show();
-        //name = getActivity().getIntent().getStringExtra("name");
-
-        /////////////////////    PDF   benny ///////////////////////////////
 
 
 
-       /* selectPdfBtn = view.findViewById(R.id.selectPdf);
-        uploadPdfBtn = view.findViewById(R.id.pdfBtn);
-        filePdfName = view.findViewById(R.id.pdfFileName);
-
-        selectPdfBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                *//*if(ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE)== );*//*
-                Intent pdfIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                pdfIntent.setType("pdf/*");
-                startActivityForResult(pdfIntent, 17);
-
-            }
-        });
-        uploadPdfBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(pdfUri != null){
-                    uploadPdf(pdfUri);
-                }
-                else{
-                    Toast.makeText(getContext(),"Pleas choose a File",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-*/
-
-
-        ///////////////////////////////////////////////////////////////
         /// set the company name  ////
         name = getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("company", "");
 
         Firebase.setAndroidContext(getContext());//FireBase , Upload Data from fireBase to EditTexts...
         final Firebase myFirebaseRef = new Firebase("https://tenders-83c71.firebaseio.com/");
-        final Firebase ref = myFirebaseRef.child("Tenders/" + getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","") + "/");
+        final Firebase ref = myFirebaseRef.child("Tenders/" + getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE)
+                .getString("category","") + "/");
         final Firebase ref2 = myFirebaseRef.child("users");
 
-        ((EditText)view.findViewById(R.id.category)).setText(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category",""));
+        ((EditText)view.findViewById(R.id.category)).setText(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE)
+                .getString("category",""));
 
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -153,7 +122,7 @@ public class DetailsTab extends Fragment {
                         editComments.setText(postSnapshot.child("comments").getValue() + "");
 
 
-                       // Glide.with(getContext()).load(postSnapshot.child(name+"Image").getValue()).into(image);
+
 
                         break;
                     }
@@ -167,21 +136,20 @@ public class DetailsTab extends Fragment {
 
             }
         });
-
+/////////////////////////////// retrive image url from fireBase //////////////////////////////////////////
         ref2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    //Toast.makeText(getContext(), postSnapshot.getKey() + "", Toast.LENGTH_SHORT).show();
                     Log.e( "כמ:" , postSnapshot.getKey());
                     try {
-                        if (postSnapshot.getKey().equals(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("username", ""))) {
+                        if (postSnapshot.getKey().equals(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE)
+                                .getString("username", ""))) {
                             url = postSnapshot.child(name).child(name + "Image").getValue()+"";
-                            //Glide.with(getContext()).load(postSnapshot.child(name + "Image").getValue()).into(image);
                             Glide.with(getContext()).load(postSnapshot.child(name).child(name + "Image").getValue()).into(image);
                         }
                     } catch (Exception e){
-                        //Toast.makeText(getContext(), "ישנה שגיאה במערכת, נסה לשמור שנית בבקשה.", Toast.LENGTH_SHORT).show();
+
                     }
                 }
             }
@@ -191,26 +159,38 @@ public class DetailsTab extends Fragment {
 
             }
         });
-
-        uploadImage = view.findViewById(R.id.uploadImageFromGallery);
-        uploadImage.setOnClickListener(new View.OnClickListener() {
+//////////////////////////// chose from gallery //////////////////////////////////////
+        uploadFromGallery = view.findViewById(R.id.uploadImageFromGallery);
+        uploadFromGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent openGallery = new Intent(Intent.ACTION_GET_CONTENT);
                 openGallery.setType("image/*"); // Intent that opens the gallery
-                startActivityForResult(openGallery, 2);
-
-
-
-               /////// Intent that get permission to all files ///////
-             //   Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-             //   intent.setType("*/*");
-             //   startActivityForResult(intent, PICKFILE_REQUEST_CODE);
+                startActivityForResult(openGallery, GALLERY_REQUEST_CODE);
+            }
+        });
+//////////////////////// chose from camera ///////////////////////////////////////////
+        uploadFromCam = view.findViewById(R.id.cam);
+        uploadFromCam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent,CAMERA_REQUEST_CODE);
 
             }
         });
+//////////////////////////////////////////////////////////////////////////////////////
+        uploadDoc = view.findViewById(R.id.pdf);
+        uploadDoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("application/pdf");
+                startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
+            }
+        });
+//////////////////////////////////////////////////////////////////////////////
         view.findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -233,10 +213,7 @@ public class DetailsTab extends Fragment {
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        //getActivity().finish();
                         dialog.dismiss();
-
                     }
                 });
 
@@ -255,160 +232,89 @@ public class DetailsTab extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ////////////////  PDF  ////////////////////
 
-
-        //////////////////////////////////////////
         mProgressDialog = new ProgressDialog(getContext());
         mProgressDialog.setCancelable(false);
         mProgressDialog.setTitle("אנא המתן...");
         mProgressDialog.setMessage("מעלה את התמונה שלך ושומר אותה...");
         mProgressDialog.show();
 
-        Boolean b;
-        try {
-            data.getData();
-            b = true;
-        } catch (Exception e){
-            b = false;
-        }
-        if (b) {
-            Uri selectedImageUri = data.getData(); /// code of picture
-            if (null != selectedImageUri) {
-                String path = selectedImageUri.getPath();
-                Log.e("image path", path + "");
-                image.setImageURI(selectedImageUri);
+        if( (requestCode == CAMERA_REQUEST_CODE &&  resultCode == RESULT_OK) 
+                || (requestCode == GALLERY_REQUEST_CODE &&  resultCode == RESULT_OK)  ){
 
-                try {
-                    Bitmap bitmapdata = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImageUri);
+            Boolean b;
+            try {
+                data.getData();
+                b = true;
+            } catch (Exception e){
+                b = false;
+            }
+            if(b) {
+                Uri imageUri = data.getData();
+                if (imageUri != null) {
+                    String imagePath = imageUri.getPath();
+                    image.setImageURI(imageUri);
+                    try {
+                        Bitmap bitmapdata = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri);
 
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmapdata.compress(Bitmap.CompressFormat.PNG, 0, baos);
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmapdata.compress(Bitmap.CompressFormat.PNG, 0, baos);
 
-            ////////////////////////////////////////////////////////////////////////////////////////////////////
+                        
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        StorageReference storageRef = storage.getReferenceFromUrl("gs://tenders-83c71.appspot.com/");
+                        final StorageReference ref = storageRef.child("Pictures/" +
+                                getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("name", "") + "/" + getContext()
+                                .getSharedPreferences("BennyApp", Context.MODE_PRIVATE)
+                                .getString("company", "") + "/" + System.currentTimeMillis() + ".jpg");
+                        UploadTask uploadTask = ref.putBytes(baos.toByteArray());
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Log.e("hmmmmm filed... ", exception.toString());
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                final Uri downloadUri = taskSnapshot.getDownloadUrl();
+                                mProgressDialog.dismiss();
+                                dRef = FirebaseDatabase.getInstance().getReference().child("users");
 
-                    FirebaseStorage storage = FirebaseStorage.getInstance();
-                    StorageReference storageRef = storage.getReferenceFromUrl("gs://tenders-83c71.appspot.com/");
-                    final StorageReference ref = storageRef.child("Pictures/" +
-                            getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("name", "") +
-                            "/" + getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE)
-                            .getString("company", "") + "/" + System.currentTimeMillis() + ".jpg");
-                    UploadTask uploadTask = ref.putBytes(baos.toByteArray());
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            Log.e("hmmmmm filed... ", exception.toString());
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            final Uri downloadUri = taskSnapshot.getDownloadUrl();
+                                dRef.child(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("username", ""))
+                                        .child(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("company", ""))
+                                        .child(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("company", "") + "Image")
+                                        .setValue(downloadUri.toString());
 
-                            // Toast.makeText(getContext(), getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("username", "") , Toast.LENGTH_SHORT).show();
-                            mProgressDialog.dismiss();
-                            dRef = FirebaseDatabase.getInstance().getReference().child("users");
-
-                            /*dRef.child(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("username", ""))
-                                    .child(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("company", "") + "Image")
-                                    .setValue(downloadUri.toString());*/
-
-                             dRef.child(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("username", ""))
-                                    .child(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("company", ""))
-                                    .child(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("company", "") + "Image")
-                                    .setValue(downloadUri.toString());
-
-                            Glide.with(getContext()).load(downloadUri.toString()).into(image);
-                        }
-                    });
-                } catch (IOException e) {
-                    Toast.makeText(getContext(), "ישנה שגיאה, נסה שנית", Toast.LENGTH_SHORT).show();
+                                Glide.with(getContext()).load(downloadUri.toString()).into(image);
+                            }
+                        });
+                    }catch (IOException e) {
+                        Toast.makeText(getContext(), "ישנה שגיאה, נסה שנית", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         } else {
-            //Toast.makeText(getContext(), "ישנה שגיאה, נסה להעלות בשנית", Toast.LENGTH_SHORT).show();
             mProgressDialog.dismiss();
         }
 
-        /*Bitmap bitmap = null;
-        if (requestCode == 1) {
-            getActivity().getContentResolver().notifyChange(mImageUri, null);
-            ContentResolver cr = getActivity().getContentResolver();
-
-            try {
-                bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, mImageUri);
-            } catch (Exception e) {
-                Toast.makeText(getContext(), "Failed to load", Toast.LENGTH_SHORT).show();
-                Log.d("", "Failed to load", e);
-            }
-        } else {
-            Log.i("SonaSys", "resultCode: " + resultCode);
-            switch (resultCode) {
-                case 0:
-                    Log.i("SonaSys", "User cancelled");
-                    break;
-                case -1:
-                    try {
-                        InputStream inputStream = getActivity().getContentResolver().openInputStream(data.getData());
-                        bitmap = BitmapFactory.decodeStream(inputStream);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-
-            }
-        }
-        if (bitmap == null) {
-
-
-        } else {
-            Bitmap scaledBitmap = scaleDown(bitmap, 1000, true);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] Bitmapdata = baos.toByteArray();
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReferenceFromUrl("gs://tenders-83c71.appspot.com/");
-            final StorageReference ref = storageRef.child("Pictures/" + "Test" + System.currentTimeMillis() + ".jpg");
-            UploadTask uploadTask = ref.putBytes(Bitmapdata);
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    Log.e("hmmmmm filed... ", exception.toString());
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    final Uri downloadUri = taskSnapshot.getDownloadUrl();
-
-                    dRef = FirebaseDatabase.getInstance().getReference().child("users");
-                    dRef.child(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("name", ""))
-                            .child(getContext().getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("company", "")).setValue(downloadUri.toString());
-
-                    Glide.with(getContext()).load(downloadUri.toString()).into(image);
-                }
-            });
-        }*/
     }
 
-  //  @Override
-  //  protected void onActivityResult(int requestCode, int resultCode, Intent data)
-  //  {
-  //      super.onActivityResult(requestCode, resultCode, data);
-  //      if(requestCode==PICKFILE_REQUEST_CODE){
-  //      }
-  //  }
 
-    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
-                                   boolean filter) {
-        float ratio = Math.min(
-                maxImageSize / realImage.getWidth(),
-                maxImageSize / realImage.getHeight());
-        int width = Math.round(ratio * realImage.getWidth());
-        int height = Math.round(ratio * realImage.getHeight());
+////////////////////////////////////////////////////////////////////////////////////////////////////
+public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
+                               boolean filter) {
+    float ratio = Math.min(
+            maxImageSize / realImage.getWidth(),
+            maxImageSize / realImage.getHeight());
+    int width = Math.round(ratio * realImage.getWidth());
+    int height = Math.round(ratio * realImage.getHeight());
 
-        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, 550,
-                300, filter);
-        realImage.recycle();
-        return newBitmap;
+    Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, 550,
+            300, filter);
+    realImage.recycle();
+    return newBitmap;
     }
+
+
 
 }
