@@ -131,20 +131,25 @@ public class Tender {
         Long diff = null;
         try {
             d = df.parse(time);
-            //long t = df.parse(currentDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         diff = d.getTime() - currentDate.getTime()  ;
 
-        /*if (diff<=0){
-
-        }*/
-
-
-        //if (t > d){
-
         return diff;
     }
+
+    /*public Date parseStringToDate(String date, String hour){
+        String time = date + " " + hour;
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        Date d = null;
+
+        try {
+            d = df.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return d;
+    }*/
 }

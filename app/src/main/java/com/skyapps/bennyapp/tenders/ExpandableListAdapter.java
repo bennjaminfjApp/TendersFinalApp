@@ -27,10 +27,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     // child data in format of header title, child title
     private HashMap<Tender, List<Item>> _listDataChild;
 
-    long timeq;
 
-    //int count = 1;
-    //int c = 5;
 
 
     public ExpandableListAdapter(Context context, List<Tender> listDataHeader,
@@ -156,7 +153,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         CountDownTimer c = new CountDownTimer(tender.getTime(), 1000) {
 
             public void onTick(long millisUntilFinished) {
-                //timeq++;
+
 
 
                 long days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished);
@@ -188,19 +185,23 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             }
 
             public void onFinish() {
+                time.setText("עבר הזמן");
             }
 
         };
 
 
+        if(tender.calcTimer(tender.getStartTender(),tender.getStartTime())>=0){
+            time.setText("טרם התחיל");
+        }
+        else if(tender.getTime()<=0){
+            time.setText("עבר הזמן");
+        }
         if (time.getText().toString().equals("שעה ותאריך")) {
+
             c.start();
 
         }
-
-
-
-
 
         return convertView;
     }
@@ -216,6 +217,5 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
-
 
 }
