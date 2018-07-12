@@ -33,6 +33,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.skyapps.bennyapp.R;
+import com.skyapps.bennyapp.SelectPhotoDialog;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class DetailsTab extends Fragment {
     private EditText editMqt, editName, editAddress, editContact, editPhone, editEmail, editCredit, editMaam, editDhifot, editHovala;
     private ImageButton uploadFromCam;
     private ImageButton uploadFromGallery;
-    private Button uploadDoc;
+    private Button uploadImage;
 
     private static final int CAMERA_REQUEST_CODE = 69 ;
     private static final int GALLERY_REQUEST_CODE = 70 ;
@@ -81,7 +82,6 @@ public class DetailsTab extends Fragment {
         editComments = view.findViewById(R.id.editComments);
         editAddressForSend = view.findViewById(R.id.editAddressForSend);
         image = view.findViewById(R.id.image);
-
         mProgressDialog = new ProgressDialog(getContext());
         mProgressDialog.setCancelable(false);
         mProgressDialog.setMessage("אנא המתן...");
@@ -159,6 +159,8 @@ public class DetailsTab extends Fragment {
 
             }
         });
+
+
 //////////////////////////// chose from gallery //////////////////////////////////////
         uploadFromGallery = view.findViewById(R.id.uploadImageFromGallery);
         uploadFromGallery.setOnClickListener(new View.OnClickListener() {
@@ -180,14 +182,14 @@ public class DetailsTab extends Fragment {
             }
         });
 //////////////////////////////////////////////////////////////////////////////////////
-        uploadDoc = view.findViewById(R.id.pdf);
-        uploadDoc.setOnClickListener(new View.OnClickListener() {
+        uploadImage = view.findViewById(R.id.uploadImage);
+        uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SelectPhotoDialog dialog = new SelectPhotoDialog() ;
+                dialog.show(getActivity().getFragmentManager(),"upload dialog");
+              // TODO  dialog.setTargetFragment( ? ,36);
 
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("application/pdf");
-                startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
             }
         });
 //////////////////////////////////////////////////////////////////////////////
@@ -209,6 +211,7 @@ public class DetailsTab extends Fragment {
                 Glide.with(getContext()).load(url).into(img);
 
 
+
                 Button btn = (Button) dialog.findViewById(R.id.btn);
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -225,6 +228,9 @@ public class DetailsTab extends Fragment {
 
         return view;
     }
+
+
+
 
 
 
@@ -260,7 +266,7 @@ public class DetailsTab extends Fragment {
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         bitmapdata.compress(Bitmap.CompressFormat.PNG, 0, baos);
 
-                        
+
                         FirebaseStorage storage = FirebaseStorage.getInstance();
                         StorageReference storageRef = storage.getReferenceFromUrl("gs://tenders-83c71.appspot.com/");
                         final StorageReference ref = storageRef.child("Pictures/" +

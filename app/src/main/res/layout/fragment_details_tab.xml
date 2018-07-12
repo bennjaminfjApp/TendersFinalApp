@@ -402,7 +402,7 @@
                 android:layout_marginRight="17dp"
                 />
             <Button
-                android:id="@+id/pdf"
+                android:id="@+id/uploadImage"
                 android:text="pdf"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
