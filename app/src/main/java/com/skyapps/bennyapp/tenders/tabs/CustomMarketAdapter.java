@@ -1,20 +1,17 @@
 package com.skyapps.bennyapp.tenders.tabs;
 
-import android.content.Intent;
-import android.widget.ArrayAdapter;
-
-
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.skyapps.bennyapp.tenders.tabs.Mifrat;
 import com.skyapps.bennyapp.Objects.ItemMarket;
 import com.skyapps.bennyapp.R;
-import com.skyapps.bennyapp.tenders.tabs.TabsActivity;
 
 import java.util.ArrayList;
 
@@ -37,6 +34,9 @@ public class CustomMarketAdapter extends ArrayAdapter<ItemMarket> {
         TextView name = (TextView) rowView.findViewById(R.id.name);
         TextView mount = (TextView) rowView.findViewById(R.id.mount);
         TextView price = (TextView) rowView.findViewById(R.id.price);
+        ImageView img = (rowView.findViewById(R.id.gotoPrice));
+        img.getLayoutParams().width = 200;
+        img.getLayoutParams().height = 200;
 
         final ItemMarket item = getItem(position);
         number.setText(item.getNumber()+"");

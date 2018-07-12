@@ -68,6 +68,11 @@ public class MarketTab extends Fragment {
         timer = view.findViewById(R.id.timer);
         all_prices = view.findViewById(R.id.all_prices);
         editComments = view.findViewById(R.id.editComments);
+        /*ImageView img = view.findViewById(R.id.gotoPrice);
+        img.getLayoutParams().height = 20;
+        img.getLayoutParams().width = 20;*/
+
+
 
         final ImageView image = view.findViewById(R.id.image);
 

@@ -3,16 +3,14 @@ package com.skyapps.bennyapp.support;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.SupportActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -75,6 +73,7 @@ public class SupportedActivity extends AppCompatActivity   implements Navigation
         editHour.setText(formattedDate2);
 
         final TextView high_dahof = findViewById(R.id.high_dahof);
+        final TextView medium_dahof = findViewById(R.id.medium_dahof);
         final TextView low_dahof = findViewById(R.id.low_dahof);
         ////////////////////////////////////////////////////////////////
         //////////// painting the choosen "dhifut" ////////////////////
@@ -82,8 +81,19 @@ public class SupportedActivity extends AppCompatActivity   implements Navigation
             @Override
             public void onClick(View v) {
                 high_dahof.setBackgroundColor(Color.YELLOW);
+                medium_dahof.setBackgroundColor(Color.WHITE);
                 low_dahof.setBackgroundColor(Color.WHITE);
                 dahof = "גבוהה";
+            }
+        });
+
+        medium_dahof.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                high_dahof.setBackgroundColor(Color.WHITE);
+                medium_dahof.setBackgroundColor(Color.YELLOW);
+                low_dahof.setBackgroundColor(Color.WHITE);
+                dahof = "בינונית";
             }
         });
 
@@ -91,6 +101,7 @@ public class SupportedActivity extends AppCompatActivity   implements Navigation
             @Override
             public void onClick(View v) {
                 low_dahof.setBackgroundColor(Color.YELLOW);
+                medium_dahof.setBackgroundColor(Color.WHITE);
                 high_dahof.setBackgroundColor(Color.WHITE);
                 dahof = "נמוכה";
             }
