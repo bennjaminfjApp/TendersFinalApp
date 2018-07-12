@@ -4,13 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -101,11 +101,11 @@ public class TyototActivity extends AppCompatActivity implements NavigationView.
 
                             listDataHeader.add(new Tender(snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("mqt").getValue()+"",
                                     postSnapshot.getKey(), snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("name").getValue()+"",
-                                    (long)snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("Info").child("timer").getValue(),
-                                    postSnapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("info").child("startTender") +"",
-                                    postSnapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("info").child("endTender") +"",
-                                    postSnapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("info").child("timeStart") +"",
-                                    postSnapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("info").child("timeEnd") +""
+                                    //(long)snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("Info").child("timer").getValue(),
+                                    snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("Info").child("startTender").getValue() +"",
+                                    snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("Info").child("endTender").getValue() +"",
+                                    snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("Info").child("timeStart").getValue() +"",
+                                    snapshot.child("Tenders/" + getSharedPreferences("BennyApp", Context.MODE_PRIVATE).getString("category","")).child(postSnapshot.getKey()).child("Info").child("timeEnd").getValue() +""
 
 
 

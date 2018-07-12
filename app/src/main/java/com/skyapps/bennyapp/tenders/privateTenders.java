@@ -71,7 +71,7 @@ public class privateTenders extends Fragment {
                     //myFirebaseRef.child(postSnapshot.getKey()).child("Info").child("timer").setValue(timer - 1);
 
                     listDataHeader.add(new Tender(postSnapshot.child("mqt").getValue() + "", postSnapshot.getKey(),
-                            postSnapshot.child("name").getValue() + "", (long) postSnapshot.child("Info").child("timer").getValue(),
+                            postSnapshot.child("name").getValue() + "",// (long) postSnapshot.child("Info").child("timer").getValue(),
                             postSnapshot.child("Info").child("startTender").getValue() + "",
                             postSnapshot.child("Info").child("endTender").getValue() + "",
                             postSnapshot.child("Info").child("timeStart").getValue() + "",
@@ -136,7 +136,7 @@ public class privateTenders extends Fragment {
                             for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
                                 listDataHeader.add(new Tender(postSnapshot.child("mqt").getValue() + "", postSnapshot.getKey(),
-                                        postSnapshot.child("name").getValue() + "", (long) postSnapshot.child("Info").child("timer").getValue(),
+                                        postSnapshot.child("name").getValue() + "", //(long) postSnapshot.child("Info").child("timer").getValue(),
                                         postSnapshot.child("Info").child("startTender").getValue() + "",
                                         postSnapshot.child("Info").child("endTender").getValue() + "",
                                         postSnapshot.child("Info").child("timeStart").getValue() + "",
@@ -204,7 +204,7 @@ public class privateTenders extends Fragment {
                                             Log.e("talherenow : " , postSnapshot.child("Info").child("timer").getValue()+"");
                                             //ExpandableListAdapter.count  = 0;
                                             listDataHeader.add(new Tender(postSnapshot.child("mqt").getValue() + "", postSnapshot.getKey(),
-                                                    postSnapshot.child("name").getValue() + "", (long) postSnapshot.child("Info").child("timer").getValue(),
+                                                    postSnapshot.child("name").getValue() + "", //(long) postSnapshot.child("Info").child("timer").getValue(),
                                                     postSnapshot.child("Info").child("startTender").getValue() + "",
                                                     postSnapshot.child("Info").child("endTender").getValue() + "",
                                                     postSnapshot.child("Info").child("timeStart").getValue() + "",

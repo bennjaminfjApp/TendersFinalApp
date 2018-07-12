@@ -65,6 +65,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView email = (TextView) convertView.findViewById(R.id.email);
 
 
+
         name.setText(item.getName());
         phone.setText(item.getPhone());
         email.setText(item.getEmail());
@@ -87,15 +88,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             }
         });
 
-        convertView.findViewById(R.id.details).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(_context,TabsActivity.class);
-                i.putExtra("name" , item.getName());
-                _context.getSharedPreferences("BennyApp" , Context.MODE_PRIVATE).edit().putString("company" , item.getCompany()).commit();
-                _context.startActivity(i);
-            }
-        });
+
+            convertView.findViewById(R.id.details).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent i = new Intent(_context, TabsActivity.class);
+                    i.putExtra("name", item.getName());
+                    _context.getSharedPreferences("BennyApp", Context.MODE_PRIVATE).edit().putString("company", item.getCompany()).commit();
+                    _context.startActivity(i);
+                }
+            });
 
 
         return convertView;
@@ -148,7 +151,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         //if (tender.getTime() > ??)
         //else time.setText("הזמן נגמר");
 
-        Log.e("the tender: " , tender.getTime()+"");
+
 
         CountDownTimer c = new CountDownTimer(tender.getTime(), 1000) {
 
@@ -185,6 +188,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             }
 
             public void onFinish() {
+
                 time.setText("עבר הזמן");
             }
 
@@ -193,6 +197,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         if(tender.calcTimer(tender.getStartTender(),tender.getStartTime())>=0){
             time.setText("טרם התחיל");
+
         }
         else if(tender.getTime()<=0){
             time.setText("עבר הזמן");
@@ -202,7 +207,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             c.start();
 
         }
-
+        Log.e("the tender: " , time.getText().toString()+"");
         return convertView;
     }
 

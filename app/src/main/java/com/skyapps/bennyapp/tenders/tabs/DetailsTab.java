@@ -109,7 +109,7 @@ public class DetailsTab extends Fragment {
                     if (postSnapshot.getKey().equals(name)) {
 
                         editMqt.setText(postSnapshot.child("mqt").getValue() + "");
-                        editName.setText(postSnapshot.child("name").getValue() + "");
+                        editName.setText(name + "");
                         editAddress.setText(postSnapshot.child("address").getValue() + "");
                         editContact.setText(postSnapshot.child("contact").getValue() + "");
                         editPhone.setText(postSnapshot.child("phone").getValue() + "");

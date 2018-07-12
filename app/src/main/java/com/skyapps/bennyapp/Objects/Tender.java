@@ -14,7 +14,7 @@ public class Tender {
 
 
 
-    public Tender(String masad, String name, String project, long time, String startTender, String endTender, String startTime, String endTime) {
+    public Tender(String masad, String name, String project, String startTender, String endTender, String startTime, String endTime) {
         this.masad = masad;
         this.name = name;
         this.project = project;
