@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.icu.util.UniversalTimeScale;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -41,7 +42,7 @@ import java.io.IOException;
 import static android.app.Activity.RESULT_OK;
 
 
-public class DetailsTab extends Fragment {
+public class DetailsTab extends Fragment implements SelectPhotoDialog.OnPhotoSelectedListener {
 
     private EditText editMqt, editName, editAddress, editContact, editPhone, editEmail, editCredit, editMaam, editDhifot, editHovala;
     private ImageButton uploadFromCam;
@@ -62,6 +63,16 @@ public class DetailsTab extends Fragment {
     DatabaseReference dRef;
     String url;
     static EditText editComments, editAddressForSend;
+
+    @Override
+    public void getImagePath(Uri path) {
+
+    }
+
+    @Override
+    public void getImageBitmap(Bitmap bitmap) {
+
+    }
 
 
     @Override
@@ -187,8 +198,8 @@ public class DetailsTab extends Fragment {
             @Override
             public void onClick(View v) {
                 SelectPhotoDialog dialog = new SelectPhotoDialog() ;
-                dialog.show(getActivity().getFragmentManager(),"upload dialog");
-              // TODO  dialog.setTargetFragment( ? ,36);
+                dialog.show(getFragmentManager(),getString(R.string.dialog_select_photo));
+                dialog.setTargetFragment( DetailsTab.this ,36);
 
             }
         });
