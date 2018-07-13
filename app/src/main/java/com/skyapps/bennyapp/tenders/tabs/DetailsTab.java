@@ -1,16 +1,20 @@
 package com.skyapps.bennyapp.tenders.tabs;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.icu.util.UniversalTimeScale;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.PermissionChecker;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +52,8 @@ public class DetailsTab extends Fragment implements SelectPhotoDialog.OnPhotoSel
     private ImageButton uploadFromCam;
     private ImageButton uploadFromGallery;
     private Button uploadImage;
+
+    Context context = this.getContext();
 
     private static final int CAMERA_REQUEST_CODE = 69 ;
     private static final int GALLERY_REQUEST_CODE = 70 ;
@@ -187,11 +193,18 @@ public class DetailsTab extends Fragment implements SelectPhotoDialog.OnPhotoSel
         uploadFromCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent,CAMERA_REQUEST_CODE);
 
+
+                if ( PermissionChecker.checkSelfPermission( getContext(), Manifest.permission.CAMERA ) != PackageManager.PERMISSION_GRANTED ) {
+
+                    ActivityCompat.requestPermissions((Activity) getContext(), new String[] {  Manifest.permission.CAMERA  },CAMERA_REQUEST_CODE );
+                }
+                else {
+                    invokeCamera();
+                }
             }
         });
+
 //////////////////////////////////////////////////////////////////////////////////////
         uploadImage = view.findViewById(R.id.uploadImage);
         uploadImage.setOnClickListener(new View.OnClickListener() {
@@ -202,6 +215,7 @@ public class DetailsTab extends Fragment implements SelectPhotoDialog.OnPhotoSel
                 dialog.setTargetFragment( DetailsTab.this ,36);
 
             }
+
         });
 //////////////////////////////////////////////////////////////////////////////
         view.findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
@@ -240,11 +254,21 @@ public class DetailsTab extends Fragment implements SelectPhotoDialog.OnPhotoSel
         return view;
     }
 
+    private void invokeCamera() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent,CAMERA_REQUEST_CODE);
+    }
 
 
-
-
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == CAMERA_REQUEST_CODE){
+            if(grantResults[0] ==   PackageManager.PERMISSION_GRANTED){
+                invokeCamera();
+            }
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -1,6 +1,9 @@
 package com.skyapps.bennyapp;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.content.PermissionChecker;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,13 +51,23 @@ public class SelectPhotoDialog extends DialogFragment{
         selectCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent2, CAMERA_REQUEST_CODEa);
+                if ( PermissionChecker.checkSelfPermission( getContext(), android.Manifest.permission.CAMERA ) != PackageManager.PERMISSION_GRANTED ) {
+
+                    ActivityCompat.requestPermissions((Activity) getContext(), new String[] {  Manifest.permission.CAMERA  },CAMERA_REQUEST_CODEa );
+                }
+                else {
+                    invokeCamera();
+                }
             }
         });
 
 
         return view ;
+    }
+
+    private void invokeCamera() {
+        Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent2, CAMERA_REQUEST_CODEa);
     }
 
     @Override
